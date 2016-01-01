@@ -1,0 +1,46 @@
+<mvc:View 
+	controllerName="io.github.gregorwolf.ebid.controller.CompanySearch" 
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+					<Label text="{i18n>CompanyName}" />
+					<Input
+						id="companyName"
+						type="Text"
+						placeholder="{i18n>EnterCompanyName}"
+						showSuggestion="true"
+						suggest="handleSuggestCompanyName"
+						suggestionItems="{/searchAsYouTypeSet}" >
+						<suggestionItems>
+							<core:Item text="{companyName}" />
+						</suggestionItems>
+					</Input>
+					<Label text="{i18n>CityName}" />
+					<Input
+						id="CityName"
+						type="Text"
+						placeholder="{i18n>EnterCityName}"
+						showSuggestion="true"
+						suggest="handleSuggestCity"
+						suggestionItems="{
+		                    path: '/CitySet',
+		                    parameters: {select: 'CityName', top: 10},
+		                    sorter: {
+		                        path: 'CityName',
+		                        descending: false
+		                    }
+		                }" >
+						<suggestionItems>
+							<core:Item text="{CityName}" />
+						</suggestionItems>
+					</Input>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
