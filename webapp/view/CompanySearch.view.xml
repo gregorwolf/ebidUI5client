@@ -15,7 +15,10 @@
 						placeholder="{i18n>EnterCompanyName}"
 						showSuggestion="true"
 						suggest="handleSuggestCompanyName"
-						suggestionItems="{/searchAsYouTypeSet}" >
+						suggestionItems="{
+		                    path: '/searchAsYouTypeSet',
+		                    length: 0
+		                }" >
 						<suggestionItems>
 							<core:Item text="{companyName}" />
 						</suggestionItems>
@@ -29,7 +32,8 @@
 						suggest="handleSuggestCity"
 						suggestionItems="{
 		                    path: '/CitySet',
-		                    parameters: {select: 'CityName', top: 10},
+		                    parameters: {select: 'CityName'},
+		                    length: 0,
 		                    sorter: {
 		                        path: 'CityName',
 		                        descending: false
@@ -39,7 +43,54 @@
 							<core:Item text="{CityName}" />
 						</suggestionItems>
 					</Input>
+					<List
+						items="{
+		                    path: '/simpleSearchSet',
+		                    parameters: {select: 'CompanyName,Street,HouseNo,Zip,City,OutOfMarket'},
+		                    sorter: {
+		                        path: 'CompanyName',
+		                        descending: false
+		                    },
+		                    filters: [{ 
+		                        path: 'CompanyName', 
+		                        operator: 'EQ', 
+		                        value1: 'ShouldNotBeFound', 
+		                        value2: '' 
+		                    },{ 
+		                        path: 'City', 
+		                        operator: 'EQ', 
+		                        value1: 'ShouldNotBeFound', 
+		                        value2: '' 
+		                    }]
+		                }"
+						headerText="{i18n>FoundCompanies}">
+						<items>
+							<ObjectListItem
+								title="{CompanyName}"
+								type="Active"
+								number="{Ebid}">
+								<firstStatus>
+									<ObjectStatus
+										text="{OutOfMarket}" />
+								</firstStatus>
+								<attributes>
+									<ObjectAttribute text="{Street} {HouseNo}" />
+									<ObjectAttribute text="{Zip} {City}" />
+								</attributes>
+							</ObjectListItem>
+						</items>
+					</List>					
 				</content>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button 
+							text="{i18n>Search}" 
+							type="Accept" 
+							press="onSearch"
+							icon="sap-icon://search" />
+					</Toolbar>
+				</footer>
 			</Page>
 		</pages>
 	</App>

@@ -8,6 +8,10 @@ sap.ui.define([
 
 		onInit: function () {
 		},
+		
+		onSearch: function(oEvent) {
+			
+		},
 
 		handleSuggestCompanyName: function(oEvent) {
 			var sTerm = oEvent.getParameter("suggestValue");
@@ -21,7 +25,9 @@ sap.ui.define([
 					)
 				);
 			}
-			oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
+			var oBinding = oEvent.getSource().getBinding("suggestionItems");
+			oBinding.length = 10;
+			oBinding.filter(aFilters);
 		},
 		
 		handleSuggestCity: function(oEvent) {
@@ -50,7 +56,9 @@ sap.ui.define([
 					)
 				);
 			}
-			oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
+			var oBinding = oEvent.getSource().getBinding("suggestionItems");
+			oBinding.length = 10;
+			oBinding.filter(aFilters);
 		}
 	});
 
